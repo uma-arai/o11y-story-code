@@ -41,7 +41,7 @@ Cloud9 IDEを開き、画面下部のコマンドラインにて以下を入力�
 sudo yum -y install tree jq
 ```
 
-#### AWS CLI
+#### AWS CLIのバージョンアップ
 次にAWS CLIを最新にします。2022年9月時点で実施時は次のバージョンがCloud9にインストールされています。コマンドはCloud9 IDEの画面下部のコマンドラインから実行してください。
 
 ```bash
@@ -53,12 +53,10 @@ aws-cli/1.19.112 Python/2.7.18 Linux/4.14.290-217.505.amzn2.x86_64 botocore/1.20
 最初に、バージョン1のAWS CLIを削除します。
 
 ```bash
-sudo yum -y remove awscli
-```
+# AWS CLIを削除
+$ sudo yum -y remove awscli
 
-実行後、次のコマンドでバージョンが返却されず、削除されたことを確認しましょう。
-
-```bash
+# 削除されたことを確認
 $ aws --version
 bash: /usr/bin/aws: No such file or directory
 ```
@@ -66,17 +64,21 @@ bash: /usr/bin/aws: No such file or directory
 次に、バージョン2のAWS CLIをインストールします。
 
 ```bash
+# バイナリが含まれるzipファイルをダウンロード
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
-```
 
-実行後、バージョン2のAWS CLIがインストールされたことを確認します。
+# ダウンロードしたzipを解凍
+$ unzip awscliv2.zip
 
-```bash
+# バイナリをインストール
+$ sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+
+# バージョン2のAWS CLIがインストールされたことを確認
 $ aws --version
 aws-cli/2.7.29 Python/3.9.11 Linux/4.14.290-217.505.amzn2.x86_64 exe/x86_64.amzn.2 prompt/off
 ```
+
+以上で、AWS CLIのバージョンアップが完了です。
 
 #### Goのインストール
 最後に、Go(Go言語)のバージョンアップをします。
@@ -94,23 +96,26 @@ Go1.19をインストールしていきましょう。
 Cloud9 IDEを開き、画面下部のコマンドラインにて以下を入力します。
 
 ```bash
-wget https://golang.org/dl/go1.19.linux-amd64.tar.gz
-```
+$ export GO_VERSION=1.19
+
+# Goバイナリのダウンロード
+$ wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz
 
 # 展開してバイナリを配置
-$ sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.16.5.linux-amd64.tar.gz && rm -f go1.16.5.linux-amd64.tar.gz
+$ sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && rm -f go${GO_VERSION}.linux-amd64.tar.gz
 
 # 最新のGoバイナリに置き換え
 $ echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bash_profile && echo "alias go='/usr/local/go/bin/go'" >> ~/.bash_profile && cat ~/.bash_profile | tail && source ~/.bash_profile  
 
 # バージョン確認
 $ go version
-go version go1.16.5 linux/amd64
+go version go1.19 linux/amd64
 ```
+
+以上で、Goのインストールが完了です。
 
 ### 共通で利用するSNSの作成
 次に、複数の章で利用するSNSの設定を実施します。
-
 
 
 ## 注意事項
