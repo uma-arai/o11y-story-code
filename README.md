@@ -377,13 +377,13 @@ Copilot CLIについては、[Copilot Primer Workshop](https://catalog.us-east-1
 Cloud9 IDEを開き、画面下部のコマンドラインにて以下を実行してください。
 
 ```bash
-# アプリケーションコードの取得（TODO:URLを変える）
-$ git clone https://github.com/uma-arai/cloudwatch-code.git
-Cloning into 'cloudwatch-code'...
+# アプリケーションコードの取得
+$ git clone https://github.com/uma-arai/o11y-story-code.git
+Cloning into 'o11y-story-code'...
 Receiving objects: 100% (337/337), 28.61 MiB | 20.71 MiB/s, done.
 Resolving deltas: 100% (161/161), done.
 
-$ cd cloudwatch-code/ecs_go
+$ cd o11y-story-code/ecs_go
 
 # Copilot CLIを利用からServiceを作成
 $ copilot init
@@ -491,25 +491,30 @@ Recommended follow-up actions:
 $ copilot svc deploy --name cnosapp2 --env test
 ```
 
-### cnos-webappのデプロイ
-つぎのコマンドで、cnos-webappのデプロイが可能です。のデプロイが可能です。
+### Webアプリケーションのデプロイ
+つぎのコマンドで、Webアプリケーションのデプロイが可能です。
 
 ```bash
+$ pwd
+/home/ec2-user/environment/o11y-story-code/ecs_go
+
+$ cd /home/ec2-user/environment/o11y-story-code/webapp
+
 # サービスの初期設定
-$ copilot svc init -n cnosapp2
+$ copilot svc init -n webapp
 Note: It's best to run this command in the root of your workspace.
-Manifest file for service cnosapp2 already exists. Skipping configuration.
-✔ Manifest file for service cnosapp2 already exists at copilot/cnosapp2/manifest.yml, skipping writing it.
+Manifest file for service webapp already exists. Skipping configuration.
+✔ Manifest file for service webapp already exists at copilot/webapp/manifest.yml, skipping writing it.
 Your manifest contains configurations like your container size and port.
 
-✔ Created ECR repositories for service cnosapp2.
+✔ Created ECR repositories for service webapp.
 
 Recommended follow-up actions:
-  - Update your manifest copilot/cnosapp2/manifest.yml to change the defaults.
-  - Run `copilot svc deploy --name cnosapp2 --env test` to deploy your service to a test environment.
+  - Update your manifest copilot/webapp/manifest.yml to change the defaults.
+  - Run `copilot svc deploy --name webapp --env test` to deploy your service to a test environment.
 
 # デプロイ
-$ copilot svc deploy --name cnosapp2 --env test
+$ copilot svc deploy --name webapp --env test
 ```
 
 

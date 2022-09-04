@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  app:
+    build: "."
+    image: cloudwatch-webapp:latest
+    #  depends_on:
+    #    - "db"
+    container_name: cloudwatch-webapp
+    #  environment:
+    #    DB_HOST: localhost
+    #    DB_USERNAME: sbcntruser
+    #    DB_PASSWORD: sbcntrpass
+    #    DB_NAME: sbcntrapp
+    #    network_mode: "host"
+    ports:
+      - "3000:80"

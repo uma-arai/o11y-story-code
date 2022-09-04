@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'test
+
+  Sample SAM Template for test
+
+  '
+Globals:
+  Function:
+    Timeout: 30
+    Tracing: Active
+  Api:
+    TracingEnabled: true
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://aws-sam-cli-managed-default-samclisourcebucket-5o5dhsn63qrr/f5e56c620c796748bf45dfc9a1d2e6ed
+      Handler: hello-world
+      Runtime: go1.x
+      Architectures:
+      - x86_64
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      FunctionUrlConfig:
+        AuthType: NONE
+    Metadata:
+      SamResourceId: HelloWorldFunction
+Outputs:
+  HelloWorldFunction:
+    Description: First Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunction
+      - Arn
+  HelloWorldFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunctionRole
+      - Arn
+  HelloWorldFunctionUrl:
+    Description: Function URLs endpoint
+    Value:
+      Fn::GetAtt:
+      - HelloWorldFunctionUrl
+      - FunctionUrl
