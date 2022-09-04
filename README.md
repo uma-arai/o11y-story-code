@@ -161,16 +161,134 @@ go version go1.19 linux/amd64
 
 メール送信のためのSNSの設定は以上です。
 
-### 以降の流れ
-以降のハンズオンは、読みすすめている章のディレクトリ(たとえば、3章のCloudWatch Metricsの場合は、`03_metrics`ディレクトリ)のREADME.mdを参照し、ハンズオンをすすめてください。
+### Copilotの実行
+各章で利用するアプリケーションをCopilot CLIでデプロイします。
+Copilot CLIについては、[Copilot Primer Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/d03316be-3c29-49db-8dc3-eb196c1778c9/ja-JP/chapter1/content3)の説明が簡潔でわかりやすいため、こちらを参照してください。
 
+Cloud9 IDEを開き、画面下部のコマンドラインにて以下を実行してください。
+
+```bash
+# アプリケーションコードの取得（TODO:URLを変える）
+$ git clone https://github.com/uma-arai/cloudwatch-code.git
+Cloning into 'cloudwatch-code'...
+Receiving objects: 100% (337/337), 28.61 MiB | 20.71 MiB/s, done.
+Resolving deltas: 100% (161/161), done.
+
+$ cd cloudwatch-code/ecs_go
+
+# Copilot CLIを利用からServiceを作成
+$ copilot init
+Note: It's best to run this command in the root of your Git repository.
+Welcome to the Copilot CLI! We're going to walk you through some questions
+to help you get set up with a containerized application on AWS. An application is a collection of
+containerized services that operate together.
+
+  Which workload type best represents your architecture?  [Use arrows to move, type to filter, ? for more help]
+    Request-Driven Web Service  (App Runner)
+  > Load Balanced Web Service   (Internet to ECS on Fargate)  # Load Balanced Web Serviceを選択
+    Backend Service             (ECS on Fargate)
+    Worker Service              (Events to SQS to ECS on Fargate)
+    Scheduled Job               (Scheduled event to State Machine to Fargate)
+    
+:
+
+Workload type: Load Balanced Web Service
+
+  What do you want to name this service? [? for help] cnosapp1  # cnosapp1と入力
+
+:
+
+Service name: cnosapp1
+
+
+Which Dockerfile would you like to use for cnosapp1?  [Use arrows to move, type to filter, ? for more help]
+  > ./Dockerfile # ./Dockerfileを選択
+    Enter custom path for your Dockerfile
+    Use an existing image instead
+
+:
+
+Dockerfile: ./Dockerfile
+
+
+✔ Created the infrastructure to manage services and jobs under application cnos.
+✔ The directory copilot will hold service manifests for application cnos.
+✔ Manifest file for service cnosapp1 already exists at copilot/cnosapp1/manifest.yml, skipping writing it.
+Your manifest contains configurations like your container size and port.
+✔ Created ECR repositories for service cnosapp1.
+
+All right, you're all set for local development.
+
+Would you like to deploy a test environment? [? for help] (y/N) y # yと入力
+
+:
+
+Deploy: Yes
+
+✔ Linked account 123456789012 and region ap-northeast-1 to application cnos.
+✔ Proposing infrastructure changes for the cnos-test environment.
+- Creating the infrastructure for the cnos-test environment.             [create complete]  [75.7s]
+  - An IAM Role for AWS CloudFormation to manage resources               [create complete]  [16.6s]
+  - An ECS cluster to group your services                                [create complete]  [10.7s]
+  - An IAM Role to describe resources in your environment                [create complete]  [17.1s]
+  - A security group to allow your containers to talk to each other      [create complete]  [5.9s]
+  - An Internet Gateway to connect to the public internet                [create complete]  [16.8s]
+  - Private subnet 1 for resources with no internet access               [create complete]  [5.9s]
+  - Private subnet 2 for resources with no internet access               [create complete]  [5.9s]
+  - Public subnet 1 for resources that can access the internet           [create complete]  [5.9s]
+  - Public subnet 2 for resources that can access the internet           [create complete]  [5.9s]
+  - A Virtual Private Cloud to control networking of your AWS resources  [create complete]  [17.8s]
+✔ Created environment test in region ap-northeast-1 under application cnos.
+
+Environment test is already on the latest version v1.8.0, skip upgrade.
+
+:
+
+✔ Proposing infrastructure changes for stack cnos-test-cnosapp1
+✔ Deployed service cnosapp1.
+Recommended follow-up action:
+  - You can access your service at http://cnos-Publi-XXXX.ap-northeast-1.elb.amazonaws.com over the internet.
+```
+
+次のコマンドを実行してください。`{コピーしたURL}`には、さきほどのコマンドの最後に表示された、`http://cnos-Public`で始まるURLを入力してください。
+
+```bash
+$ curl {コピーしたURL}/cnosapp1/v1/helloworld
+HTTP/1.1 200 OK
+Date: Sun, 04 Sep 2022 10:26:30 GMT
+Content-Type: application/json; charset=UTF-8
+Content-Length: 15
+Connection: keep-alive
+
+"Hello world!"
+```
+
+HTTP 200が返却されればOKです。
+この流れでほかのアプリケーションもデプロイしておきましょう。
+
+```bash
+# サービスの初期設定
+$ copilot svc init -n cnosapp2
+Note: It's best to run this command in the root of your workspace.
+Manifest file for service cnosapp2 already exists. Skipping configuration.
+✔ Manifest file for service cnosapp2 already exists at copilot/cnosapp2/manifest.yml, skipping writing it.
+Your manifest contains configurations like your container size and port.
+
+✔ Created ECR repositories for service cnosapp2.
+
+Recommended follow-up actions:
+  - Update your manifest copilot/cnosapp2/manifest.yml to change the defaults.
+  - Run `copilot svc deploy --name cnosapp2 --env test` to deploy your service to a test environment.
+
+# デプロイ
+$ copilot svc deploy --name cnosapp2 --env test
+```
 
 ## 注意事項
 
 - 本リポジトリは不定期にバージョンアップを行います。READMEのバージョン情報を適宜ご参照ください。
 - AWSサービス利用に伴って、AWSの利用料金が発生します。各章のハンズオンのREADME.md、または全体の削除手順にしたがって、リソースの削除をオススメします。
   
-
 ## 免責事項
 
 - 本リポジトリ（以降、`o11y-story-code`）は利用者ご自身の判断と責任において行われるものとします。
