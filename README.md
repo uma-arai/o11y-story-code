@@ -352,26 +352,28 @@ copilot --version
 Copilot CLIについては、[Copilot Primer Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/d03316be-3c29-49db-8dc3-eb196c1778c9/ja-JP/chapter1/content3)の説明が簡潔でわかりやすいため、こちらを参照してください。
 
 各章ごとに利用するCopilotでデプロイするアプリケーションを次表に示します。
+「任意」のサービスについては、**デプロイしなくても動作するが、デプロイをすることで多様なデータを対象とできる箇所**となります。
 アプリケーションは各章のハンズオン実施時にデプロイしてもOKですし、一度にデプロイしてもOKです。
 各章のハンズオンの事前準備の際、ほかの章ですでに利用したアプリケーションをデプロイ済みか確認し、必要に応じてCopilot CLIでアプリケーションをデプロイしてください。
 
-| 章＼アプリケーション名 | cnosapp1 | cnosapp2 | app-insights | webapp |
-| ---------------------- | -------- | -------- | ------------ | ------ |
-| 3                      |          |          |              |        |
-| 4                      |          |          |              |        |
-| 5                      |          |          |              |        |
-| 6                      | ○        |          |              | ○      |
-| 7                      |          |          |              |        |
-| 8                      | ○        |          |              | ○      |
-| 9                      |          |          |              |        |
-| 10                     |          |          |              | ○      |
-| 11                     |          |          |              | ○      |
-| 12                     |          |          |              | ○      |
-| 13                     |          |          |              |        |
-| 14                     |          |          |              |        |
-| 15                     |          |          |              |        |
-| 16                     |          |          |              |        |
-| 17                     |
+| 章番号 | 対象のCloudWatchサービス        | アプリケーション名 |          |         |        |      |
+| ------ | ------------------------------- | ------------------ | -------- | ------- | ------ | ---- |
+|        |                                 | cnosapp1           | cnosapp2 | cnosapp | webapp | SNS  |
+| 3      | CloudWatch Metrics              | ○                  | ○        |         |        |      |
+| 4      | CloudWatch Logs                 |                    |          | ○       |        |      |
+| 5      | CloudWatch Alarm                | ○                  |          |         |        | ○    |
+| 6      | CloudWatch Events / EventBridge |                    |          |         |        |      |
+| 7      | Resource Health                 |                    |          |         |        |      |
+| 8      | Synthetics                      |                    |          |         | ○      |      |
+| 9      | Evidently                       |                    |          |         | ○      |      |
+| 10     | RUM                             |                    |          |         | ○      |      |
+| 11     | X-Ray                           | ○                  |          |         | ○      |      |
+| 12     | ServiceLens                     | ○                  |          |         | ○      |      |
+| 13     | Container Insights              | ○                  | 任意     | 任意    |        | 任意 |
+| 14     | Lambda Insights                 |                    |          |         |        |      |
+| 15     | Contributor Insights            | ○                  |          |         |        |      |
+| 16     | Application Insights            | ○                  | 任意     | 任意    |        | 任意 |
+| 17     | Anomaly Detection               | ○                  |          |         |        | ○    |
 
 ここでは、1つのアプリケーション「cnosapp1」をCopilot CLIでデプロイしてみましょう。
 Cloud9 IDEを開き、画面下部のコマンドラインにて以下を実行してください。
