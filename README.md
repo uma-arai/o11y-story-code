@@ -520,6 +520,7 @@ Recommended follow-up actions:
 $ copilot svc deploy --name webapp --env test
 ```
 
+本書のハンズオンを実施するための事前準備は以上です。
 
 ## 注意事項
 
