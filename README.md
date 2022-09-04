@@ -472,8 +472,9 @@ Connection: keep-alive
 HTTP 200が返却されればOKです。
 そのほかのアプリケーションのデプロイ方法についても後述します。
 
-### cnosapp2のデプロイ
+### cnosapp2/cnosappのデプロイ
 つぎのコマンドで、cnosapp2のデプロイが可能です。
+cnosappやSNSについても同様の方法でデプロイします。
 
 ```bash
 $ cd /home/ec2-user/environment/o11y-story-code/ecs_go
@@ -496,6 +497,7 @@ $ copilot svc deploy --name cnosapp2 --env test
 ```
 
 ### Webアプリケーションのデプロイ
+Webアプリケーションのみ、別階層にデータをおいています。
 つぎのコマンドで、Webアプリケーションのデプロイが可能です。
 
 ```bash
