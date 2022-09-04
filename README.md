@@ -31,7 +31,7 @@
 | 項目名              | 値                                                       |
 | ------------------- | -------------------------------------------------------- |
 | Environment type    | Create a new EC2 instance for environment(direct access) |
-| Instance type       | t3.micro(2 GiB RAM + 1 vCPU)                             |
+| Instance type       | t3.small(2 GiB RAM + 2 vCPU)                             |
 | Platform            | Amazon Linux2 (recommended)                              |
 | Cost-saving setting | After 30 minutes(default)                                |
 | Network(VPC)        | vpc-xxxxxxx(default) ※インターネットに接続可能なVPC      |
