@@ -1,4 +1,4 @@
-# Amazon CloudWatch [本格]入門 クラウドネイティブオブザーバビリティストーリー/サンプルコード
+# クラウドネイティブオブザーバビリティストーリー/サンプルコード
 
 ## Overview
 
@@ -14,8 +14,7 @@
 - AdministratorAccessポリシー相当のIAMユーザーもしくはIAMロールで作業可能なこと
 
 ### 共通で利用するCloud9の作成
-
-ではまず、各章共通で利用するCloud9の作成に入ります。
+まず、各章共通で利用するCloud9の作成に入ります。
 Cloud9のセットアップには、AWS公式から提供されている、「[ws](https://catalog.us-east-1.prod.workshops.aws/workshops/d03316be-3c29-49db-8dc3-eb196c1778c9/ja-JP/chapter2/content1,"Copilot Primer Workshop")」を利用します。
 ワークショップ内の内容説明も含まれているため、**Copilot Primer Workshopの「Cloud9 と IAM の準備」のみ**実施をしてください。
 
@@ -23,7 +22,12 @@ Cloud9のセットアップには、AWS公式から提供されている、「[w
 Copilotについては、本書の各章ハンズオンでも利用します。そのためCopilotも手順どおりにインストールをしてください。
 
 ### 本書で利用するツールをCloud9にインストール
-TODO: jqとか、Golangバージョンアップとか。
+TODO: jqとか、Golangバージョンアップ, AWSCLIの最新化とか。
+
+### 共通で利用するSNSの作成
+次に、複数の章で利用するSNSの設定を実施します。
+
+
 
 ## 注意事項
 
