@@ -14,23 +14,193 @@
 - AdministratorAccessポリシー相当のIAMユーザーもしくはIAMロールで作業可能なこと
 
 ### 共通で利用するCloud9の作成
-まず、各章共通で利用するCloud9の作成に入ります。
-Cloud9のセットアップには、AWS公式から提供されている、「[Copilot Primer Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/d03316be-3c29-49db-8dc3-eb196c1778c9/ja-JP/chapter2/content1)」を利用します。
-ワークショップ内の内容説明も含まれているため、**Copilot Primer Workshopの「Cloud9 と IAM の準備」のみ**実施をしてください。
+まず、各章共通で利用するAWS Cloud9(以降、Cloud9）の作成をします。
 
-**本ハンズオン向けに2点注意事項**があります。
-1. 名前は混乱を避けるために次のように設定してください。
+1. AWSマネジメントコンソール上部の [サービス] タブより [Cloud9] を選択します。
+2. Cloud9ダッシュボードの左側ナビゲーションメニューから [Account environments] を選択し、[Create environment] ボタンを押します。
+3. [Step1 Name environment] では、次のように各項目を入力後、 [Next step] ボタンを押します。
 
-| サービス    | 名称              |
-| ----------- | ----------------- |
-| Cloud9      | cnos-handson-dev  |
-| IAMユーザー | cnos-handson-user |
+| 項目名      | 値               |
+| ----------- | ---------------- |
+| Name        | cnos-handson-dev |
+| Description | (入力なし)       |
 
-2. [認証情報設定](https://catalog.us-east-1.prod.workshops.aws/workshops/d03316be-3c29-49db-8dc3-eb196c1778c9/ja-JP/chapter2/content3#)でコマンド実行時のAWSリージョンを指定する箇所があります。**リージョン名は「ap-northeast-1」を指定**してください。
+4. [Step2 Configure settings] では、次のように各項目を入力・選択後、 [Next step] ボタンを押します。
+ネットワークVPC及びサブネットはデフォルトのものを選択してください（デフォルトVPCが存在しない場合、インターネットに接続可能なVPCとサブネットを選択してください）。
 
+| 項目名              | 値                                                       |
+| ------------------- | -------------------------------------------------------- |
+| Environment type    | Create a new EC2 instance for environment(direct access) |
+| Instance type       | t3.micro(2 GiB RAM + 1 vCPU)                             |
+| Platform            | Amazon Linux2 (recommended)                              |
+| Cost-saving setting | After 30 minutes(default)                                |
+| Network(VPC)        | vpc-xxxxxxx(default) ※インターネットに接続可能なVPC      |
+| Subnet              | subnet-xxxxxxx                                           | Default in ap-northeast-1a |
 
-なお、手順の中で[Copilot のインストール](https://catalog.us-east-1.prod.workshops.aws/workshops/d03316be-3c29-49db-8dc3-eb196c1778c9/ja-JP/chapter2/content3#copilot)があります。
-Copilotについては、本書の各章ハンズオンでも利用します。そのためCopilotも手順どおりにインストールをしてください。
+5. [Review] にて入力内容を確認し、 [Create environment] ボタンを押します。
+
+![](./images/cloud9-confirm.png)
+
+6. 以下のようにCloud9コンソールが利用可能であることを確認してください。
+
+![](./images/cloud9-main.png)
+
+#### IAMユーザーの作成
+
+Cloud9ではマネジメントコンソールにログインしたIAMユーザーの権限で自動的に認証権限が設定される仕組みを持っています。
+これは AWS Managed Temporary Credentials(以降「AMTC」と略します) と呼ばれています。
+
+[AWS Managed Temporary Credentials](https://docs.aws.amazon.com/ja_jp/cloud9/latest/user-guide/how-cloud9-with-iam.html#auth-and-access-control-temporary-managed-credentials)
+
+IAMロール等の付与等も不要であるため便利なのですが、今回はアクセスキーIDの設定をして、ハンズオンを実施します。
+
+1. AWSマネジメントコンソールのトップ画面上部の [サービス] タブより [IAM] を 選択。
+2. IAMダッシュボードの左側ナビゲーションメニューから [ユーザー] を選択し、表示画面上部の [ユーザーを追加] ボタンを押下。
+3. ユーザーを追加画面にて次表の項目を選択後、[次のステップ:アクセス権限] ボタンを 押下。
+
+| 項目名         | 値                       |
+| -------------- | ------------------------ |
+| ユーザー名     | cnos-handson-user        |
+| アクセスの種類 | プログラムによるアクセス |
+
+4. ユーザーを作成画面にて、[既存のポリシーを直接アタッチ]を選択し、[AdministratorAccess] にチェックを入れた後、[次ののステップ:タグ] ボタンを押下。
+5. ここではタグの追加はスキップ。[次のステップ:確認] ボタンを押下。
+6. 確認画面にて、確認画面に表示された内容を確認し、[ユーザーの作成] ボタンを押下。
+7. 成功の旨を確認し、表示されるアクセスキーIDとシークレットアクセスキーの値を控えておく。
+　
+#### AMTCの無効化
+
+まず Cloud9でAMTCを無効化して、AWS管理の一時認証情報を無効化します。
+
+1. AWSマネジメントコンソールのトップ 画面上部の [サービス] タブより [Cloud9] を選択。
+2. Cloud9 ダッシュボードの左側ナビゲーションメニューから [Your environments] を選択し、表示画面中央の cnos-handson-dev 内 [Open IDE] ボタンを押下。コンソールが表示されるまで待つ。
+3. 画面中央上部のタブの [+] ボタンを押し、[Open Preferences] を選択して新規タブを作成。タブ画面内の左側ナビゲーションメニューから [AWS Settings] → [Credentials] を選択。
+4. 表示される画面上の [AWS managed temporary credentials:] を OFFに設定。
+
+![](./images/cloud9-amtc-off.png)
+
+5. 無効化できたか確認するために `aws sts get-caller-identity` コマンドを実行します。
+
+```bash
+aws sts get-caller-identity
+```
+
+認証情報を見つけられないエラーが表示されることを確認します。
+
+#### AWSアクセスキーの設定
+
+では、エラーにしたがい認証情報を設定しましょう。 `aws configure`コマンドを実行して先ほど作成した IAMユーザー cnos-handson-user の認証情報を登録します。 さきほどIAMユーザーを作成した際に利用したタブから認証情報を確認できます。
+
+```bash
+aws configure
+```
+
+いくつか入力を求められるので次のように入力します。
+
+- AWS Access Key ID [None]: cnos-handson-user のアクセスキーID
+- AWS Secret Access Key [None]: cnos-handson-user のシークレットアクセスキー
+- Default region name [None]: ap-northeast-1
+- Default output format [None]: json
+
+AWS の API にリクエストを送れるか確認しましょう。
+再び`aws sts get-caller-identity`コマンドを実行すると cnos-handson-user の情報が返却されます。これで AWSの認証情報を設定することができました。
+
+以上でAWSアクセスキーの設定は完了です。実際には、AWSアクセスキーをそのままフラットファイルに記載してしまうのは危険なので、[aws-vault](https://github.com/99designs/aws-vault)等と組み合わせて利用するのが実運用を考えると現実的です。
+今回のハンズオンは簡略化のため、credentialsに記載しています。
+
+以上により、Cloud9環境が整いました。
+
+#### EBSボリュームサイズの変更
+Cloud9でアプリケーションをビルドする際に、一定のストレージが必要です。
+Cloud9のデフォルトボリュームだとサイズが足りないので、別途EBSをアタッチします。
+
+次のシェルファイルを作成します。名称は`resize.sh`としてください。
+
+```shell: resize.sh
+#!/bin/bash
+
+# Specify the desired volume size in GiB as a command line argument. If not specified, default to 20 GiB.
+SIZE=${1:-20}
+
+# Get the ID of the environment host Amazon EC2 instance.
+INSTANCEID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
+REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/\(.*\)[a-z]/\1/')
+
+# Get the ID of the Amazon EBS volume associated with the instance.
+VOLUMEID=$(aws ec2 describe-instances \
+  --instance-id $INSTANCEID \
+  --query "Reservations[0].Instances[0].BlockDeviceMappings[0].Ebs.VolumeId" \
+  --output text \
+  --region $REGION)
+
+# Resize the EBS volume.
+aws ec2 modify-volume --volume-id $VOLUMEID --size $SIZE
+
+# Wait for the resize to finish.
+while [ \
+  "$(aws ec2 describe-volumes-modifications \
+    --volume-id $VOLUMEID \
+    --filters Name=modification-state,Values="optimizing","completed" \
+    --query "length(VolumesModifications)"\
+    --output text)" != "1" ]; do
+sleep 1
+done
+
+#Check if we're on an NVMe filesystem
+if [[ -e "/dev/xvda" && $(readlink -f /dev/xvda) = "/dev/xvda" ]]
+then
+  # Rewrite the partition table so that the partition takes up all the space that it can.
+  sudo growpart /dev/xvda 1
+
+  # Expand the size of the file system.
+  # Check if we're on AL2
+  STR=$(cat /etc/os-release)
+  SUB="VERSION_ID=\"2\""
+  if [[ "$STR" == *"$SUB"* ]]
+  then
+    sudo xfs_growfs -d /
+  else
+    sudo resize2fs /dev/xvda1
+  fi
+
+else
+  # Rewrite the partition table so that the partition takes up all the space that it can.
+  sudo growpart /dev/nvme0n1 1
+
+  # Expand the size of the file system.
+  # Check if we're on AL2
+  STR=$(cat /etc/os-release)
+  SUB="VERSION_ID=\"2\""
+  if [[ "$STR" == *"$SUB"* ]]
+  then
+    sudo xfs_growfs -d /
+  else
+    sudo resize2fs /dev/nvme0n1p1
+  fi
+fi
+```
+
+resizeシェルを実行してディスク容量を確保します。`data blocks changed`と表示されればOKです。`df`コマンドを実行し、ディスクの空き領域が増えていることも確認しておきます。
+
+```bash: resizeシェルの実行
+$ ls
+resize.sh
+
+$ sh resize.sh 30
+・・・
+data blocks changed from 2620923 to 7863803
+
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        474M     0  474M   0% /dev
+tmpfs           492M     0  492M   0% /dev/shm
+tmpfs           492M  456K  492M   1% /run
+tmpfs           492M     0  492M   0% /sys/fs/cgroup
+/dev/xvda1       30G  8.1G   22G  27% /
+tmpfs            99M     0   99M   0% /run/user/1000
+```
+
+以上により、EBSボリュームサイズの変更が完了しました。
 
 ### 本書で利用する各種ツールをCloud9にインストール
 
@@ -113,6 +283,22 @@ go version go1.19 linux/amd64
 ```
 
 以上で、Goのインストールが完了です。
+
+#### Copilot のインストール
+最後はアプリケーションをデプロイするために利用する、「Copilot CLI」のインストールです。ターミナルから次のコマンドを実行し Copilot をインストールします。
+
+```bash
+sudo curl -Lo /usr/local/bin/copilot https://github.com/aws/copilot-cli/releases/download/v1.21.0/copilot-linux && sudo chmod +x /usr/local/bin/copilot
+```
+
+無事インストール完了したかどうかを次のコマンドを実行して確認してください。
+
+```bash
+copilot --version
+```
+
+バージョン情報が表示されればOKです。
+
 
 ### 共通で利用するSNSの作成
 今回のハンズオンでは、「SNS」の機能を利用して設定したメールアドレスにメールを送信します。
