@@ -18,11 +18,95 @@
 Cloud9のセットアップには、AWS公式から提供されている、「[Copilot Primer Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/d03316be-3c29-49db-8dc3-eb196c1778c9/ja-JP/chapter2/content1)」を利用します。
 ワークショップ内の内容説明も含まれているため、**Copilot Primer Workshopの「Cloud9 と IAM の準備」のみ**実施をしてください。
 
+**本ハンズオン向けに2点注意事項**があります。
+1. 名前は混乱を避けるために次のように設定してください。
+
+| サービス    | 名称              |
+| ----------- | ----------------- |
+| Cloud9      | cnos-handson-dev  |
+| IAMユーザー | cnos-handson-user |
+
+2. [認証情報設定](https://catalog.us-east-1.prod.workshops.aws/workshops/d03316be-3c29-49db-8dc3-eb196c1778c9/ja-JP/chapter2/content3#)でコマンド実行時のAWSリージョンを指定する箇所があります。**リージョン名は「ap-northeast-1」を指定**してください。
+
+
 なお、手順の中で[Copilot のインストール](https://catalog.us-east-1.prod.workshops.aws/workshops/d03316be-3c29-49db-8dc3-eb196c1778c9/ja-JP/chapter2/content3#copilot)があります。
 Copilotについては、本書の各章ハンズオンでも利用します。そのためCopilotも手順どおりにインストールをしてください。
 
-### 本書で利用するツールをCloud9にインストール
-TODO: jqとか、Golangバージョンアップ, AWSCLIの最新化とか。
+### 本書で利用する各種ツールをCloud9にインストール
+
+#### 便利ツール
+Cloud9 IDEを開き、画面下部のコマンドラインにて以下を入力します。
+
+```bash
+sudo yum -y install tree jq
+```
+
+#### AWS CLI
+次にAWS CLIを最新にします。2022年9月時点で実施時は次のバージョンがCloud9にインストールされています。コマンドはCloud9 IDEの画面下部のコマンドラインから実行してください。
+
+```bash
+$ aws --version
+aws-cli/1.19.112 Python/2.7.18 Linux/4.14.290-217.505.amzn2.x86_64 botocore/1.20.112
+```
+
+バージョン1が利用されています。現在の最新はバージョン2であるため移行しましょう。
+最初に、バージョン1のAWS CLIを削除します。
+
+```bash
+sudo yum -y remove awscli
+```
+
+実行後、次のコマンドでバージョンが返却されず、削除されたことを確認しましょう。
+
+```bash
+$ aws --version
+bash: /usr/bin/aws: No such file or directory
+```
+
+次に、バージョン2のAWS CLIをインストールします。
+
+```bash
+$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+```
+
+実行後、バージョン2のAWS CLIがインストールされたことを確認します。
+
+```bash
+$ aws --version
+aws-cli/2.7.29 Python/3.9.11 Linux/4.14.290-217.505.amzn2.x86_64 exe/x86_64.amzn.2 prompt/off
+```
+
+#### Goのインストール
+最後に、Go(Go言語)のバージョンアップをします。
+Cloud9ではデフォルト状態でGolangがインストールされています。
+
+```bash
+$ go version
+go version go1.18.3 linux/amd64
+```
+
+Go1.18がインストールされていますね。
+しかし、今回のハンズオンではGo1.19を利用しています。
+Go1.19をインストールしていきましょう。
+
+Cloud9 IDEを開き、画面下部のコマンドラインにて以下を入力します。
+
+```bash
+wget https://golang.org/dl/go1.19.linux-amd64.tar.gz
+```
+
+# 展開してバイナリを配置
+$ sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.16.5.linux-amd64.tar.gz && rm -f go1.16.5.linux-amd64.tar.gz
+
+# 最新のGoバイナリに置き換え
+$ echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bash_profile && echo "alias go='/usr/local/go/bin/go'" >> ~/.bash_profile && cat ~/.bash_profile | tail && source ~/.bash_profile  
+
+# バージョン確認
+$ go version
+go version go1.16.5 linux/amd64
+```
 
 ### 共通で利用するSNSの作成
 次に、複数の章で利用するSNSの設定を実施します。
