@@ -3,7 +3,7 @@
 # https://aws.github.io/copilot-cli/docs/manifest/rd-web-service/
 
 # Your service name will be used in naming your resources like log groups, App Runner services, etc.
-name: cnos-webapp
+name: webapp
 # The "architecture" of the service you're running.
 type: Request-Driven Web Service
 

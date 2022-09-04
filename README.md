@@ -353,7 +353,7 @@ Copilot CLIについては、[Copilot Primer Workshop](https://catalog.us-east-1
 
 各章ごとに利用するCopilotでデプロイするアプリケーションを次表に示します。
 アプリケーションは各章のハンズオン実施時にデプロイしてもOKですし、一度にデプロイしてもOKです。
-ほかの章ですでに利用するアプリケーションをデプロイ済みかどうかを見ながら、Copilot CLIでアプリケーションをデプロイしてください。
+各章のハンズオンの事前準備の際、ほかの章ですでに利用したアプリケーションをデプロイ済みか確認し、必要に応じてCopilot CLIでアプリケーションをデプロイしてください。
 
 | 章＼アプリケーション名 | cnosapp1 | cnosapp2 | app-insights | webapp |
 | ---------------------- | -------- | -------- | ------------ | ------ |
@@ -474,6 +474,8 @@ HTTP 200が返却されればOKです。
 つぎのコマンドで、cnosapp2のデプロイが可能です。
 
 ```bash
+$ cd /home/ec2-user/environment/o11y-story-code/ecs_go
+
 # サービスの初期設定
 $ copilot svc init -n cnosapp2
 Note: It's best to run this command in the root of your workspace.
@@ -495,9 +497,6 @@ $ copilot svc deploy --name cnosapp2 --env test
 つぎのコマンドで、Webアプリケーションのデプロイが可能です。
 
 ```bash
-$ pwd
-/home/ec2-user/environment/o11y-story-code/ecs_go
-
 $ cd /home/ec2-user/environment/o11y-story-code/webapp
 
 # サービスの初期設定
