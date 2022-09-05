@@ -19,9 +19,8 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import assert from "assert"
-import { pets } from "app/utils"
 import { Suspense } from "react"
-import { PriceTag } from "../../../components/PriceTag"
+import { PriceTag } from "app/components/PriceTag"
 import { MdLocalShipping } from "app/components/icons"
 import getPet from "app/rpc/pet/queries/getPet"
 
@@ -30,9 +29,7 @@ type DetailProps = {
 }
 
 const Detail = ({ id }: DetailProps) => {
-  const pet = pets.find((p) => p.id === id)
-  assert(pet)
-  useQuery(getPet, { id })
+  const [pet] = useQuery(getPet, { id })
 
   return (
     <Container maxW={"7xl"}>
@@ -42,15 +39,21 @@ const Detail = ({ id }: DetailProps) => {
         py={{ base: 18, md: 24 }}
       >
         <Flex>
-          <Image
-            rounded={"md"}
-            alt={"pet image"}
-            src={pet.imageUrl}
-            fit={"cover"}
-            align={"center"}
-            w={"100%"}
-            h={{ base: "100%", sm: "400px", lg: "500px" }}
-          />
+          {pet ? (
+            <Image
+              rounded={"md"}
+              alt={"pet image"}
+              src={pet.imageUrl}
+              fit={"cover"}
+              align={"center"}
+              w={"100%"}
+              h={{ base: "100%", sm: "400px", lg: "500px" }}
+            />
+          ) : (
+            <Center w={"100%"} h={{ base: "100%", sm: "400px", lg: "500px" }}>
+              <Spinner />
+            </Center>
+          )}
         </Flex>
         <Stack spacing={{ base: 6, md: 10 }}>
           <Box as={"header"}>
@@ -59,9 +62,9 @@ const Detail = ({ id }: DetailProps) => {
               fontWeight={600}
               fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
             >
-              {pet.name}
+              {pet?.name || "--"}
             </Heading>
-            <PriceTag price={pet.price} salePrice={pet.salePrice} currency="JPY" />
+            <PriceTag price={pet?.price || 99999999} salePrice={pet?.salePrice} currency="JPY" />
           </Box>
 
           <Stack
@@ -77,7 +80,7 @@ const Detail = ({ id }: DetailProps) => {
               >
                 推しポイント
               </Text>
-              <Text fontSize={"lg"}>{pet.description}</Text>
+              <Text fontSize={"lg"}>{pet?.description || "なし"}</Text>
             </VStack>
             <Box>
               <Text
@@ -89,35 +92,39 @@ const Detail = ({ id }: DetailProps) => {
               >
                 特徴
               </Text>
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                {pet.features.map((f) => (
-                  <List key={f} spacing={2}>
-                    <ListItem>{f}</ListItem>
-                  </List>
-                ))}
-              </SimpleGrid>
+              {pet && (
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                  {pet.features.map((f) => (
+                    <List key={f} spacing={2}>
+                      <ListItem>{f}</ListItem>
+                    </List>
+                  ))}
+                </SimpleGrid>
+              )}
             </Box>
-            <Box>
-              <Text
-                fontSize={{ base: "16px", lg: "18px" }}
-                color={useColorModeValue("yellow.500", "yellow.300")}
-                fontWeight={"500"}
-                textTransform={"uppercase"}
-                mb={"4"}
-              >
-                詳細情報
-              </Text>
-              <List spacing={2}>
-                {pet.details.map((v) => (
-                  <ListItem key={v.name}>
-                    <Text as={"span"} fontWeight={"bold"} mr={5}>
-                      {v.name}
-                    </Text>
-                    {v.value}
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
+            {pet && (
+              <Box>
+                <Text
+                  fontSize={{ base: "16px", lg: "18px" }}
+                  color={"yellow.500"}
+                  fontWeight={"500"}
+                  textTransform={"uppercase"}
+                  mb={"4"}
+                >
+                  詳細情報
+                </Text>
+                <List spacing={2}>
+                  {pet.details.map((v) => (
+                    <ListItem key={v.name}>
+                      <Text as={"span"} fontWeight={"bold"} mr={5}>
+                        {v.name}
+                      </Text>
+                      {v.value}
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            )}
           </Stack>
 
           <Button

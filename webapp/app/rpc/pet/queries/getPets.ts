@@ -1,24 +1,18 @@
 import { apiClient, pets } from "app/utils"
 import { Ctx, getConfig } from "blitz"
-import { PetsType } from "../../../models"
+import { PetsType } from "app/models"
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node/build/src/NodeTracerProvider"
 import { Span, SpanKind, SpanStatusCode } from "@opentelemetry/api"
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-grpc"
 import { BatchSpanProcessor, Tracer } from "@opentelemetry/sdk-trace-base"
-import { Segment } from "aws-xray-sdk"
 import assert from "assert"
 import { AspidaResponse } from "aspida"
 
 const getPets = async (_ = null, ctx: Ctx) => {
-  let segment: Segment | null = null
   let tracer: Tracer | null = null
   let otelSpan: Span | null = null
-  if (process.env.TRACING === "xray") {
-    const AWSXRay = require("aws-xray-sdk")
-    segment = new AWSXRay.Segment("xray-segment")
-    assert(segment)
-    segment.addMetadata("rpc", "getPets")
-  } else {
+
+  if (process.env.TRACING === "1") {
     const { serverRuntimeConfig } = getConfig()
     const tracerProvider: NodeTracerProvider = serverRuntimeConfig.tracerProvider
     const exporter = new OTLPTraceExporter({})
@@ -43,14 +37,9 @@ const getPets = async (_ = null, ctx: Ctx) => {
       })
     }
 
-    if (process.env.TRACING === "xray") {
-      const subSegment = segment?.addNewSubsegment("api-call")
-      const result = await apiClient.pets.get()
-      subSegment?.close()
-      return result.body
-    } else {
+    if (process.env.TRACING === "1") {
       assert(tracer)
-      return await tracer.startActiveSpan(
+      return await tracer?.startActiveSpan(
         "active-getPets",
         { kind: SpanKind.INTERNAL },
         async (span) => {
@@ -70,17 +59,14 @@ const getPets = async (_ = null, ctx: Ctx) => {
           return result?.body || []
         }
       )
+    } else {
+      return await apiClient.pets.$get()
     }
   } catch (e) {
     console.error(e)
     throw e
   } finally {
-    if (process.env.TRACING === "xray") {
-      segment?.flush()
-      segment?.close()
-    } else {
-      otelSpan?.end()
-    }
+    otelSpan?.end()
   }
 }
 

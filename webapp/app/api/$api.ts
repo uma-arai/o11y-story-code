@@ -1,17 +1,17 @@
 import type { AspidaClient } from "aspida"
-import type { Methods as Methods0 } from "./cnosapp/v1/performance/cpubound"
-import type { Methods as Methods1 } from "./cnosapp/v1/pets/_petId@string"
+import type { Methods as Methods0 } from "./cnosapp1/v1/performance/cpubound"
+import type { Methods as Methods1 } from "./cnosapp1/v1/pets/_petId@string"
 import type { Methods as Methods2 } from "./pets"
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (baseURL === undefined ? "" : baseURL).replace(/\/$/, "")
-  const PATH0 = "/cnosapp/v1/performance/cpubound"
-  const PATH1 = "/cnosapp/v1/pets"
+  const PATH0 = "/cnosapp1/v1/performance/cpubound"
+  const PATH1 = "/cnosapp1/v1/pets"
   const PATH2 = "/pets"
   const GET = "GET"
 
   return {
-    cnosapp: {
+    cnosapp1: {
       v1: {
         performance: {
           cpubound: {
