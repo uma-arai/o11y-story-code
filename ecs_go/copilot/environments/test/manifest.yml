@@ -18,4 +18,4 @@ type: Environment
 
 # Configure observability for your environment resources.
 observability:
-  container_insights: false
+  container_insights: true
