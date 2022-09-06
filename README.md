@@ -362,7 +362,7 @@ Copilot CLIについては、[Copilot Primer Workshop](https://catalog.us-east-1
 | 3      | CloudWatch Metrics              | ○                  | ○        |         |        |      |
 | 4      | CloudWatch Logs                 |                    |          | ○       |        |      |
 | 5      | CloudWatch Alarm                | ○                  |          |         |        | ○    |
-| 6      | CloudWatch Events / EventBridge |                    |          |         |        |      |
+| 6      | CloudWatch Events / EventBridge |                    |          |         |        |  ○   |
 | 7      | Resource Health                 |                    |          |         |        |      |
 | 8      | Synthetics                      |                    |          |         | ○      |      |
 | 9      | Evidently                       |                    |          |         | ○      |      |
