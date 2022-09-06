@@ -356,7 +356,7 @@ $ sudo ./sam-installation/install --update
 バージョンが1.56.0以上になっていればOKです。
 
 ```bash
-$ copilot --version
+$ sam --version
 SAM CLI, version 1.56.0
 ```
 
