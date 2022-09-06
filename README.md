@@ -574,7 +574,7 @@ cnosapp1とcnosapp2がECS上にデプロイされるのに対し、cnosappはApp
 $ cd /home/ec2-user/environment/o11y-story-code/ecs_go
 
 # サービスの初期設定
-$ copilot svc init -n cnosapp2
+$ copilot svc init -n cnosapp
 Note: It's best to run this command in the root of your workspace.
 Manifest file for service cnosapp2 already exists. Skipping configuration.
 ✔ Manifest file for service cnosapp2 already exists at copilot/cnosapp/manifest.yml, skipping writing it.
