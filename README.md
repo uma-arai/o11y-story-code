@@ -250,6 +250,7 @@ $ unzip awscliv2.zip
 $ sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
 
 # バージョン2のAWS CLIがインストールされたことを確認
+# 「bash: /usr/bin/aws: No such file or directory」と表示される場合は、一度ターミナルを閉じて再度試してください。
 $ aws --version
 aws-cli/2.7.29 Python/3.9.11 Linux/4.14.290-217.505.amzn2.x86_64 exe/x86_64.amzn.2 prompt/off
 ```
