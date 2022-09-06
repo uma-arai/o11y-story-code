@@ -281,7 +281,6 @@ $ sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli -
 
 # バージョン2のAWS CLIがインストールされたことを確認
 $ . ~/.bash_profile && aws --version
-aws-cli/2.7.29 Python/3.9.11 Linux/4.14.290-217.505.amzn2.x86_64 exe/x86_64.amzn.2 prompt/off
 
 # ゴミ消し
 $ rm -rf ./aws awscliv2.zip
@@ -375,13 +374,15 @@ SAM CLI, version 1.56.0
 
 | 項目グループ             | 項目名 | 値               |
 | ------------------------ | ------ | ---------------- |
-| 詳細                     | 名前   | cnos-handson-sns |
+| 詳細 | タイプ | スタンダード |
+|                      | 名前   | cnos-handson-sns |
 |                          | 表示名 | CNOS-SNS         |
-| 暗号化                   |        | 変更なし         |
-| アクセスポリシー         |        | 変更なし         |
-| 配信再試行ポリシー       |        | 変更なし         |
-| 配信ステータスのログ記録 |        | 変更なし         |
-| タグ                     |        | 変更なし         |
+| |コンテンツベースのメッセージ重複排除|(チェックなし)|
+| 暗号化 - オプション                  |        | 変更なし         |
+| アクセスポリシー - オプション        |        | 変更なし         |
+|配信再試行ポリシー (HTTP/S) - オプション||変更なし         |
+| 配信ステータスのログ記録 - オプション|        | 変更なし         |
+| タグ - オプション                    |        | 変更なし         |
 
 4. 完了画面が表示されることを確認してください。
 
@@ -396,8 +397,8 @@ SAM CLI, version 1.56.0
 | 詳細                                 | トピックARN    | 変更なし                       |
 |                                      | プロトコル     | Eメール                        |
 |                                      | エンドポイント | 利用可能なメールアドレスを入力 |
-| サブスクリプションフィルターポリシー |                | 変更なし                       |
-| Redriveポリシー                      |                | 変更なし                       |
+| サブスクリプションフィルターポリシー - オプション |                | 変更なし                       |
+| Redrive ポリシー (デッドレターキュー) - オプション                      |                | 変更なし                       |
 
 3. 完了画面が表示されることを確認してください。
 
@@ -425,7 +426,7 @@ Copilot CLIについては、[Copilot Primer Workshop](https://catalog.us-east-1
 | 3      | CloudWatch Metrics              | ○                  | ○        |         |        |      |
 | 4      | CloudWatch Logs                 |                    |          | ○       |        |      |
 | 5      | CloudWatch Alarm                | ○                  |          |         |        | ○    |
-| 6      | CloudWatch Events / EventBridge |                    |          |         |        |      |
+| 6      | CloudWatch Events / EventBridge |                    |          |         |        |  ○   |
 | 7      | Resource Health                 |                    |          |         |        |      |
 | 8      | Synthetics                      |                    |          |         | ○      |      |
 | 9      | Evidently                       |                    |          |         | ○      |      |
