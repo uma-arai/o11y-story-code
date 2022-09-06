@@ -91,7 +91,7 @@ aws sts get-caller-identity
 # 例
 $ aws sts get-caller-identity
 Unable to locate credentials. You can configure credentials by running "aws configure".
-
+```
 
 #### AWSアクセスキーの設定
 
