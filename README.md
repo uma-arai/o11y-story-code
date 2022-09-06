@@ -87,6 +87,12 @@ aws sts get-caller-identity
 
 認証情報を見つけられないエラーが表示されることを確認します。
 
+```bash
+# 例
+$ aws sts get-caller-identity
+Unable to locate credentials. You can configure credentials by running "aws configure".
+
+
 #### AWSアクセスキーの設定
 
 では、エラーにしたがい認証情報を設定しましょう。 `aws configure`コマンドを実行して先ほど作成した IAMユーザー cnos-handson-user の認証情報を登録します。 さきほどIAMユーザーを作成した際に利用したタブから認証情報を確認できます。
