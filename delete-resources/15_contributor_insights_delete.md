@@ -6,8 +6,12 @@
 
 ## 作成したContributor Insightsの定義削除
 
-TBD
+1. AWSマネジメントコンソール上から、サービスの検索で[cw]と入力し、表示されるサービス一覧から[CloudWatch]を選択します。
+2. 左ペインのメニューから[インサイト]メニューを開き、[Contributor Insights]を選択します。
+3. [cnos-contrib-error-status-ranking]のチェックボックスにチェックを入れます。
+4. [削除]ボタンを押すと、削除する旨のメッセージボックスが表示されるので、さらに[削除]ボタンを押してください。
+5. AWSマネジメントコンソール上部に[cnos-contrib-error-status-ranking が deleted されました。]とメッセージが表示されればOKです。
 
-削除お疲れ様でした。
+以上でContributor Insightsに関するリソース削除は完了です。
 
 全体の削除手順に戻るには[こちら](./README.md)

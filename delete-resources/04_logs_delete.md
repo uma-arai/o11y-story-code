@@ -2,28 +2,21 @@
 
 本手順の実施内容は次の通りです。
 
-1. ECSタスクに関するCloudWatch Logs削除
-2. App Runnerに関するCloudWatch Logs削除
-3. Lambdaに関するCloudWatch Logs削除
-4. メトリクスフィルター定義削除
+1. 各種CloudWatch Logs削除
 
-## ECSタスクに関するCloudWatch Logs削除
+## 各種CloudWatch Logs削除
 
-TBD
+1. AWSマネジメントコンソール上から、サービスの検索で[cw]と入力し、表示されるサービス一覧から[CloudWatch]を選択します。
+2. 左ペインのメニューから[ログ]メニューを開き、[ロググループ]を選択します。
+3. 検索フィールドに[/aws/ecs/containerinsights/cnosapp-test-]と入力し、表示されたアラームのチェックボックスにチェックを入れます。
+4. [アクション]→[ロググループの削除]を押すと、削除する旨のメッセージボックスが表示されるので[削除]ボタンを押してください。
+5. AWSマネジメントコンソール上部に[次のロググループは削除されました。]とメッセージが表示されればOKです。
 
-## App Runnerに関するCloudWatch Logs削除
+その他、同様に検索フィールドに次のキーワードを入力して該当したロググループを削除してください。
 
-TBD
+ - /aws/apprunner/cnos-test
+ - /aws/lambda/cnos-test
 
-## Lambdaに関するCloudWatch Logs削除
-
-TBD
-
-## メトリクスフィルター定義削除
-
-TBD
-
-
-削除お疲れ様でした。
+以上でCloudWatch Logsに関するリソース削除は完了です。
 
 全体の削除手順に戻るには[こちら](./README.md)
