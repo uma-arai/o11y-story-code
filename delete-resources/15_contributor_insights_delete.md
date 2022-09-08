@@ -1,9 +1,13 @@
 # Contributor Insightsに関連するリソース削除手順
 
-本手順で削除するリソースは次の通りです。
+本手順の実施内容は次の通りです。
 
 1. 作成したContributor Insightsの定義削除
 
 ## 作成したContributor Insightsの定義削除
 
 TBD
+
+削除お疲れ様でした。
+
+全体の削除手順に戻るには[こちら](./README.md)
