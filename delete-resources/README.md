@@ -4,3 +4,38 @@
 終了後は次の手順にしたがって削除しましょう。
 
 
+## 各ミニハンズオン固有のリソース削除
+
+実施したミニハンズオンにしたがって、各リソースをまず削除してください。
+この手順は、Copilotによる事前準備リソースの削除前に必ず実施してください。
+
+|章|対象リソース|削除手順|
+|-|-|-|
+|3章|CloudWatch Metrics|本章に関する削除対象のリソースはありません。[^delete-metrics]|
+|4章|CloudWatch Logs|[削除手順](04_logs_delete.md)|
+|5章|CloudWatch Alarm|[削除手順](05_alarm_delete.md)|
+|6章|CloudWatch Events/EventBridge|[削除手順](06_event_delete.md)|
+|7章|Resource Health|本章に関する削除対象のリソースはありません。[^delete-resource-health]|
+|8章|Synthetics|[削除手順](08_synthetics_delete.md)|
+|9章|Evidently|[削除手順](09_evidently_delete.md)|
+|10章|RUM|[削除手順](10_rum_delete.md)|
+|11章|X-Ray|本章に関する削除対象のリソースはありません。[^delete-xray]|
+|12章|ServiceLens|本章に関する削除対象のリソースはありません。[^delete-servicelens]|
+|13章|Container Inisghts|本章に関する削除対象のリソースはありません。[^delete-container-insights]|
+|14章|Lambda Insights|本章に関する削除対象のリソースはありません。[^delete-lambda-insights]|
+|15章|Contributor Insights|[削除手順](15_contributor_insights_delete.md)|
+|16章|Application Insights|[削除手順](16_application_insights_delete.md)|
+|17章|Anomaly Detection|[削除手順](17_anomaly_detection_delete.md)|
+
+## Lambda関連のリソース削除
+
+## Copilot関連のリソース削除
+
+## Cloud9の削除
+
+[^delete-metrics]: AWSの仕様上、ミニハンズオンにて作成された標準メトリクス及びカスタムメトリクスは利用者側で削除できません。15ヶ月保持された後、自動で削除されます。
+[^delete-resource-health]: 本章に関連するリソースは[Copilot関連のリソース削除]手順にて併せて自動で削除されます。
+[^delete-xray]: 本章に関連するリソースは[Copilot関連のリソース削除]手順にて併せて自動で削除されます。
+[^delete-servicelens]: 本章に関連するリソースは[Copilot関連のリソース削除]手順にて併せて自動で削除されます。
+[^delete-container-insights]: 本章に関連するリソースは[Copilot関連のリソース削除]手順にて併せて自動で削除されます。
+[^delete-lambda-insights]: 本章に関連するリソースは[Lambda関連のリソース削除]手順にて併せて自動で削除されます。
