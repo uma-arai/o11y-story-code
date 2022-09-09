@@ -1,7 +1,10 @@
-import { BlitzPage, useParam, useQuery } from "blitz"
+import { BlitzPage, Link, useParam, useQuery } from "blitz"
 import { MainLayout } from "app/templates"
 import {
   Box,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
   Button,
   Center,
   Container,
@@ -15,12 +18,13 @@ import {
   Stack,
   StackDivider,
   Text,
-  VStack
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react"
 import assert from "assert"
 import { Suspense } from "react"
-import { PriceTag } from "app/components/PriceTag"
-import { MdLocalShipping } from "app/components/icons"
+import { PriceTag, ReserveModal } from "app/components"
+import { FaChevronRight, MdLocalShipping } from "app/components/icons"
 import getPet from "app/rpc/pet/queries/getPet"
 
 type DetailProps = {
@@ -29,9 +33,26 @@ type DetailProps = {
 
 const Detail = ({ id }: DetailProps) => {
   const [pet] = useQuery(getPet, { id })
+  const disclosure = useDisclosure()
 
   return (
     <Container maxW={"7xl"}>
+      <Breadcrumb spacing={3} separator={<FaChevronRight color="gray.100" />}>
+        <BreadcrumbItem>
+          <BreadcrumbLink as={Link} href="/">
+            トップ
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <BreadcrumbLink as={Link} href="/pets">
+            一覧
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <BreadcrumbLink>{pet?.name || ""}</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
@@ -72,11 +93,7 @@ const Detail = ({ id }: DetailProps) => {
             divider={<StackDivider borderColor={"gray.200"} />}
           >
             <VStack spacing={{ base: 4, sm: 6 }}>
-              <Text
-                color={"gray.500"}
-                fontSize={"2xl"}
-                fontWeight={"300"}
-              >
+              <Text color={"gray.500"} fontSize={"2xl"} fontWeight={"300"}>
                 推しポイント
               </Text>
               <Text fontSize={"lg"}>{pet?.description || "なし"}</Text>
@@ -107,7 +124,6 @@ const Detail = ({ id }: DetailProps) => {
                   fontSize={{ base: "16px", lg: "18px" }}
                   color={"yellow.500"}
                   fontWeight={"500"}
-                  textTransform={"uppercase"}
                   mb={"4"}
                 >
                   詳細情報
@@ -126,29 +142,15 @@ const Detail = ({ id }: DetailProps) => {
             )}
           </Stack>
 
-          <Button
-            rounded={"none"}
-            w={"full"}
-            mt={8}
-            size={"lg"}
-            py={"7"}
-            bg={"gray.900"}
-            color={"white"}
-            textTransform={"uppercase"}
-            _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
-            }}
-          >
+          <Button size="lg" variant={"primary"} onClick={disclosure.onOpen}>
             見学をする
           </Button>
+          <ReserveModal {...disclosure} />
 
-          {
-            <Stack direction="row" alignItems="center" justifyContent={"center"}>
-              <MdLocalShipping />
-              <Text>対応には２〜３営業日かかります</Text>
-            </Stack>
-          }
+          <Stack direction="row" alignItems="center" justifyContent={"center"}>
+            <MdLocalShipping />
+            <Text>予約には２〜３営業日かかります</Text>
+          </Stack>
         </Stack>
       </SimpleGrid>
     </Container>

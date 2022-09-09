@@ -43,6 +43,7 @@ variables:                    # Pass environment variables as key value pairs.
   LOCAL_MODE: 1
   SESSION_SECRET_KEY: "12345678901234567890123456789012"
   API_HOST: ""
+  TRACING: 0
 
 #
 # tags:                         # Pass tags as key value pairs.

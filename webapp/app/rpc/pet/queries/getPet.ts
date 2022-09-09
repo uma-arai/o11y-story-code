@@ -1,4 +1,4 @@
-import { apiClient, pets } from "app/utils"
+import { apiClient, pets, sleep } from "app/utils"
 import { Ctx, getConfig, resolver } from "blitz"
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node/build/src/NodeTracerProvider"
 import { SpanKind, SpanStatusCode } from "@opentelemetry/api"
@@ -11,10 +11,6 @@ const GetPet = z.object({
   id: z.string().nonempty(),
 })
 type GetPetType = z.infer<typeof GetPet>
-
-const sleep = (msec: number) => {
-  return new Promise((resolve) => setTimeout(resolve, msec))
-}
 
 export default resolver.pipe(resolver.zod(GetPet), async ({ id }, ctx: Ctx) => {
   let tracer: Tracer | null = null

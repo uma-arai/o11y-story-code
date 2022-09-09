@@ -2,7 +2,7 @@
 export const pets = [
   {
     id: "1",
-    name: "cute cat",
+    name: "ミヌエット",
     currency: "JPY",
     price: 360_000,
     flag: "new",
@@ -37,7 +37,7 @@ export const pets = [
   },
   {
     id: "3",
-    name: "Red cat",
+    name: "マンチカン",
     currency: "JPY",
     price: 240_000,
     imageUrl:
@@ -53,7 +53,7 @@ export const pets = [
   },
   {
     id: "4",
-    name: "cute kitten",
+    name: "シャム",
     currency: "JPY",
     price: 550_000,
     imageUrl:
@@ -118,7 +118,7 @@ export const pets = [
   },
   {
     id: "6",
-    name: "cute kitten",
+    name: "ソマリ",
     currency: "JPY",
     price: 550_000,
     imageUrl:
@@ -134,7 +134,7 @@ export const pets = [
   },
   {
     id: "7",
-    name: "cute kitten",
+    name: "チンチラ",
     currency: "JPY",
     price: 550_000,
     imageUrl:
@@ -150,7 +150,7 @@ export const pets = [
   },
   {
     id: "8",
-    name: "cute kitten",
+    name: "ペルシャ",
     currency: "JPY",
     price: 550_000,
     imageUrl:
@@ -166,7 +166,7 @@ export const pets = [
   },
   {
     id: "9",
-    name: "cute kitten",
+    name: "スコティッシュフォールド",
     currency: "JPY",
     price: 550_000,
     imageUrl:
@@ -182,7 +182,7 @@ export const pets = [
   },
   {
     id: "10",
-    name: "cute kitten",
+    name: "アメリカンショートヘア",
     currency: "JPY",
     price: 550_000,
     imageUrl:

@@ -1,5 +1,6 @@
 export { FaChevronDown } from "@react-icons/all-files/fa/FaChevronDown"
 export { FaChevronUp } from "@react-icons/all-files/fa/FaChevronUp"
+export { FaChevronRight } from "@react-icons/all-files/fa/FaChevronRight"
 export { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 export { FaTwitter } from "@react-icons/all-files/fa/FaTwitter"
 export { FaYoutube } from "@react-icons/all-files/fa/FaYoutube"

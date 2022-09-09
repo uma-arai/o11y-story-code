@@ -9,7 +9,8 @@ import {
   Stack,
   StackProps,
   Text,
-  useBreakpointValue
+  useBreakpointValue,
+  useDisclosure,
 } from "@chakra-ui/react"
 import { PriceTag } from "app/components/PriceTag"
 import { PetsType } from "app/models"
@@ -17,6 +18,7 @@ import { Link as BlitzLink, useQuery, useRouter } from "blitz"
 import getEvaluate from "../../rpc/evidently/queries/getEvaluate"
 import { Rating } from "../Rating"
 import { useMemo } from "react"
+import { ReserveModal } from "../Modal"
 
 type BaseItemType = PetsType
 type Props<T extends BaseItemType> = {
@@ -36,7 +38,8 @@ export const GridItem = <T,>(props: Props<T extends BaseItemType ? T : BaseItemT
     },
     { suspense: false }
   )
-  const likes = useMemo(() => Math.ceil(Math.random() * 5), [props])
+  const likes = useMemo(() => Math.ceil(Math.random() * 5), [])
+  const disclosure = useDisclosure()
 
   const { items, rootProps } = props
   const { id, name, imageUrl, price, salePrice } = items
@@ -74,9 +77,10 @@ export const GridItem = <T,>(props: Props<T extends BaseItemType ? T : BaseItemT
         <BlitzLink href={`/pets/${id}`} passHref>
           <Button as={"a"}>詳細を見る</Button>
         </BlitzLink>
-        <Link textDecoration="underline" color={"gray.70"}>
+        <Link as="button" textDecoration="underline" color={"gray.70"} onClick={disclosure.onOpen}>
           見学予約をする
         </Link>
+        <ReserveModal {...disclosure} name={name} />
       </Stack>
     </Stack>
   )
