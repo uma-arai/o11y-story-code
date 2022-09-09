@@ -9,6 +9,8 @@
 Application Insightsの削除ですが、筆者にて検証したところ、マネジメントコンソールが日本語に設定されているケースではうまくリソースが削除できないことを確認しています。
 そのため、ローカリゼーション設定より、言語を[日本語]から[English(US)]に変更した上で実施してください。
 
+![](./images/language-settings.png)
+
 1. AWSマネジメントコンソール上から、サービスの検索で[cw]と入力し、表示されるサービス一覧から[CloudWatch]を選択します。
 2. 左ペインのメニューから[Insights]メニューを開き、[Application Insights]を選択します。
 3. [List view]タブを選択し、[ApplicationInsights-cnos-app-insight-test]のチェックボックスにチェックを入れます。
