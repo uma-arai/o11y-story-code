@@ -11,10 +11,7 @@ const theme = {
       link: "#00B5DD",
     },
     grey: {
-      darkGrey: "#272727",
-      middleGrey: "#888888",
       lightGrey: "#EFEFEF",
-      paleGrey: "#B9B9B9",
       pearlGrey: "#F4F4F4",
       100: "#505050",
       70: "#505050B3",

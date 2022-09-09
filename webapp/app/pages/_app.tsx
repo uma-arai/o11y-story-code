@@ -11,22 +11,22 @@ import {
 
 import { ChakraProvider, extendTheme, Spinner } from "@chakra-ui/react"
 import { Suspense, useEffect } from "react"
-import theme from "../theme"
-import components from "../theme/components"
+import theme from "app/theme"
+import components from "app/theme/components"
 import { rumClient } from "../utils"
 
-// 開発環境におけるAPIモックの注入
 if (process.env.NODE_ENV === "development") {
   require("../../mocks")
 }
 
-declare function cwr(operation: string, payload: any): void
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
   const router = useRouter()
   useEffect(() => {
-    rumClient?.recordPageView(router.pathname)
+    if (process.env.NEXT_PUBLIC_ENABLED_RUM_OPTION === "1") {
+      rumClient?.recordPageView(router.pathname)
+    }
   }, [router])
 
   return (

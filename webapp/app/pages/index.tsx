@@ -9,30 +9,13 @@ import {
   Stack,
   StackDivider,
   Text,
-  useColorModeValue,
-  VStack,
+  VStack
 } from "@chakra-ui/react"
 import { BlitzPage, Link } from "blitz"
 import { MainLayout } from "app/templates"
-import { ReactElement } from "react"
 import { IoIosAlarm, IoIosAnalytics, IoIosJet, IoLogoOctocat } from "app/components/icons"
+import { Feature } from "app/components"
 
-type FeatureProps = {
-  text: string
-  iconBg: string
-  icon?: ReactElement
-}
-
-const Feature = ({ text, icon, iconBg }: FeatureProps) => {
-  return (
-    <Stack direction={"row"} align={"center"}>
-      <Flex w={8} h={8} align={"center"} justify={"center"} rounded={"full"} bg={iconBg}>
-        {icon}
-      </Flex>
-      <Text fontWeight={600}>{text}</Text>
-    </Stack>
-  )
-}
 
 const TopPage: BlitzPage = () => {
   return (
@@ -44,7 +27,7 @@ const TopPage: BlitzPage = () => {
             color={"blue.400"}
             fontWeight={600}
             fontSize={"sm"}
-            bg={useColorModeValue("blue.50", "blue.900")}
+            bg={"blue.50"}
             p={2}
             alignSelf={"flex-start"}
             rounded={"md"}
@@ -57,26 +40,26 @@ const TopPage: BlitzPage = () => {
           </Text>
           <Stack
             spacing={4}
-            divider={<StackDivider borderColor={useColorModeValue("gray.100", "gray.700")} />}
+            divider={<StackDivider borderColor={"gray.100"} />}
           >
             <Feature
               icon={<Icon as={IoLogoOctocat} color={"yellow.500"} w={5} h={5} />}
-              iconBg={useColorModeValue("yellow.100", "yellow.900")}
+              iconBg={"yellow.100"}
               text={"かわいい家族がみつかります"}
             />
             <Feature
               icon={<Icon as={IoIosJet} color={"green.500"} w={5} h={5} />}
-              iconBg={useColorModeValue("green.100", "green.900")}
+              iconBg={"green.100"}
               text={"家族をCloudWatchで見守ります"}
             />
             <Feature
               icon={<Icon as={IoIosAlarm} color={"purple.500"} w={5} h={5} />}
-              iconBg={useColorModeValue("purple.100", "purple.900")}
+              iconBg={"purple.100"}
               text={"家族に何かあってもAlarmsで検知します"}
             />
             <Feature
               icon={<Icon as={IoIosAnalytics} color={"pink.500"} w={5} h={5} />}
-              iconBg={useColorModeValue("purple.100", "purple.900")}
+              iconBg={"purple.100"}
               text={"健康状態もしっかりInsight"}
             />
           </Stack>

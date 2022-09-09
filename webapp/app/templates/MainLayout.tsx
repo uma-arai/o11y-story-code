@@ -1,16 +1,20 @@
 import { Center, Flex, Spinner } from "@chakra-ui/react"
 import { calc } from "@chakra-ui/theme-tools"
+import { Footer, Header } from "app/components"
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from "app/utils"
-import { BlitzLayout } from "blitz"
+import { BlitzLayout, Head } from "blitz"
 import { ReactNode, Suspense } from "react"
-import { Header } from "../components/Header"
-import { Footer } from "../components/Footer"
+
 
 type Props = { title?: string; children: ReactNode }
 
 export const MainLayout: BlitzLayout<Props> = ({ title, children }) => {
   return (
     <>
+      <Head>
+        <title>{title || "Cloud Native Observability Story"}</title>
+        <link rel="icon" href={"/favicon.svg"} />
+      </Head>
       <Header />
       <Flex
         justify={"flex-start"}

@@ -9,8 +9,7 @@ import {
   Stack,
   StackProps,
   Text,
-  useBreakpointValue,
-  useColorModeValue,
+  useBreakpointValue
 } from "@chakra-ui/react"
 import { PriceTag } from "app/components/PriceTag"
 import { PetsType } from "app/models"
@@ -57,7 +56,7 @@ export const GridItem = <T,>(props: Props<T extends BaseItemType ? T : BaseItemT
       </Box>
       <Stack>
         <Stack spacing="1">
-          <Text fontWeight="medium" color={useColorModeValue("gray.700", "gray.400")}>
+          <Text fontWeight="medium" color={"gray.700"}>
             {name}
           </Text>
           <PriceTag price={price} salePrice={salePrice} currency="JPY" />
@@ -75,7 +74,7 @@ export const GridItem = <T,>(props: Props<T extends BaseItemType ? T : BaseItemT
         <BlitzLink href={`/pets/${id}`} passHref>
           <Button as={"a"}>詳細を見る</Button>
         </BlitzLink>
-        <Link textDecoration="underline" color={useColorModeValue("gray.600", "gray.400")}>
+        <Link textDecoration="underline" color={"gray.70"}>
           見学予約をする
         </Link>
       </Stack>

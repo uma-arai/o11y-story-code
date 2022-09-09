@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "blitz dev",
-    "build": "aspida && npx blitz build",
+    "build": "npx aspida && npx blitz build",
     "start": "npx blitz start",
     "start:prd": "npx blitz start --port 80",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "api:build": "aspida",
-    "dev:aspida": "aspida --watch",
+    "api:build": "npx aspida",
+    "dev:aspida": "npx aspida --watch",
     "gen:theme-typings": "npx chakra-cli tokens app/theme/index.ts"
   },
   "prettier": {

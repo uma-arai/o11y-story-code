@@ -4,10 +4,6 @@ import { AwsRum, AwsRumConfig } from "aws-rum-web"
 let rumClient: AwsRum | null
 if (typeof window !== "undefined") {
   if (process.env.NEXT_PUBLIC_ENABLED_RUM_OPTION === "1") {
-    console.log(
-      "process.env.NEXT_PUBLIC_ENABLED_RUM_OPTION",
-      process.env.NEXT_PUBLIC_ENABLED_RUM_OPTION
-    )
     try {
       const APPLICATION_ID = process.env.NEXT_PUBLIC_RUM_APP_ID || ""
       const APPLICATION_VERSION = "1.0.0"
@@ -30,11 +26,7 @@ if (typeof window !== "undefined") {
 
       rumClient = new AwsRum(APPLICATION_ID, APPLICATION_VERSION, APPLICATION_REGION, config)
       console.info(
-        "INFO: complete RUM initialization!",
-        APPLICATION_ID,
-        APPLICATION_VERSION,
-        APPLICATION_REGION,
-        config
+        "INFO: complete RUM initialization!"
       )
     } catch (error) {
       // Ignore errors thrown during CloudWatch RUM web client initialization

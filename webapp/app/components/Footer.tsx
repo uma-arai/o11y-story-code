@@ -1,14 +1,5 @@
 import { ReactNode } from "react"
-import {
-  Box,
-  Button,
-  Link,
-  SimpleGrid,
-  Stack,
-  Text,
-  useColorModeValue,
-  VisuallyHidden,
-} from "@chakra-ui/react"
+import { Box, Link, SimpleGrid, Stack, Text } from "@chakra-ui/react"
 import { ExternalLink } from "./ExternalLink"
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
@@ -19,49 +10,18 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
   )
 }
 
-const SocialButton = ({
-  children,
-  label,
-  href,
-}: {
-  children: ReactNode
-  label: string
-  href: string
-}) => {
-  return (
-    <Button
-      bg={useColorModeValue("grey", "whiteAlpha.100")}
-      rounded={"full"}
-      w={8}
-      h={8}
-      cursor={"pointer"}
-      as={"a"}
-      href={href}
-      display={"inline-flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      transition={"background 0.3s ease"}
-      _hover={{
-        bg: useColorModeValue("grey.lightGrey", "whiteAlpha.200"),
-      }}
-    >
-      <VisuallyHidden>{label}</VisuallyHidden>
-      {children}
-    </Button>
-  )
-}
-
 export const Footer = () => {
   return (
     <Box
       as="footer"
       role="contentinfo"
-      bg={useColorModeValue("gray.50", "gray.900")}
-      color={useColorModeValue("gray.700", "gray.200")}
+      bg={"gray.50"}
+      color={"gray.700"}
       position={"sticky"}
       top={"100vh"}
+      w={"100vw"}
     >
-      <Stack maxW={"4xl"} px={10} py={3}>
+      <Stack px={10} py={3} justify={"space-between"} direction={{ base: "column", md: "row" }}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={8}>
           <Stack align={"flex-start"}>
             <ListHeader>Titles</ListHeader>
@@ -83,25 +43,15 @@ export const Footer = () => {
             <Link href={"#"}>Terms of Service</Link>
           </Stack>
         </SimpleGrid>
-      </Stack>
-
-      <Box
-        borderTopWidth={1}
-        borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.700")}
-      >
         <Stack
-          maxW={"6xl"}
           py={2}
-          px={10}
           direction={{ base: "column", md: "row" }}
           spacing={4}
-          justify={{ md: "space-between" }}
-          align={{ md: "center" }}
+          align={{ base: "flex-start", md: "flex-end" }}
         >
           <Text>© 2022 uma-arai. All rights reserved</Text>
         </Stack>
-      </Box>
+      </Stack>
     </Box>
   )
 }

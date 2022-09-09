@@ -1,4 +1,4 @@
-import { HStack, Icon, StackProps, useColorModeValue } from "@chakra-ui/react"
+import { HStack, Icon, StackProps } from "@chakra-ui/react"
 import { FaHeart } from "app/components/icons"
 
 type Props = {
@@ -8,8 +8,6 @@ type Props = {
 } & StackProps
 
 export const Rating = ({ defaultValue = 0, max = 5, size = "md", ...stackProps }: Props) => {
-  const color = useColorModeValue("white", "grey.100")
-  const activeColor = useColorModeValue("primary.100", "pink")
   return (
     <HStack spacing="0.5" {...stackProps}>
       {Array.from({ length: max })
@@ -19,7 +17,7 @@ export const Rating = ({ defaultValue = 0, max = 5, size = "md", ...stackProps }
             key={index}
             as={FaHeart}
             fontSize={size}
-            color={index <= defaultValue ? activeColor : color}
+            color={index <= defaultValue ? "primary.100" : "white"}
           />
         ))}
     </HStack>
