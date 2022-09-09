@@ -15,23 +15,23 @@
 実施したミニハンズオンにしたがって、各リソースをまず削除してください。
 この手順は、Copilotによる事前準備リソースの削除前に必ず実施してください。
 
-|章|対象リソース|削除手順|
-|-|-|-|
-|3章|CloudWatch Metrics|[削除手順](03_metrics_delete.md)[^delete-metrics]|
-|4章|CloudWatch Logs|本章に関する削除対象のリソースはありません。[^delete-logs]|
-|5章|CloudWatch Alarm|[削除手順](05_alarm_delete.md)|
-|6章|CloudWatch Events/EventBridge|[削除手順](06_event_delete.md)|
-|7章|Resource Health|本章に関する削除対象のリソースはありません。[^delete-resource-health]|
-|8章|Synthetics|[削除手順](08_synthetics_delete.md)|
-|9章|Evidently|[削除手順](09_evidently_delete.md)|
-|10章|RUM|[削除手順](10_rum_delete.md)|
-|11章|X-Ray|本章に関する削除対象のリソースはありません。[^delete-xray]|
-|12章|ServiceLens|本章に関する削除対象のリソースはありません。[^delete-servicelens]|
-|13章|Container Inisghts|本章に関する削除対象のリソースはありません。[^delete-container-insights]|
-|14章|Lambda Insights|本章に関する削除対象のリソースはありません。[^delete-lambda-insights]|
-|15章|Contributor Insights|[削除手順](15_contributor_insights_delete.md)|
-|16章|Application Insights|[削除手順](16_application_insights_delete.md)|
-|17章|Anomaly Detection|[削除手順](17_anomaly_detection_delete.md)|
+| 章   | 対象リソース                  | 削除手順                                                                 |
+| ---- | ----------------------------- | ------------------------------------------------------------------------ |
+| 3章  | CloudWatch Metrics            | [削除手順](03_metrics_delete.md)[^delete-metrics]                        |
+| 4章  | CloudWatch Logs               | 事後削除にて削除をします。ここではスキップしてください。                 |
+| 5章  | CloudWatch Alarm              | [削除手順](05_alarm_delete.md)                                           |
+| 6章  | CloudWatch Events/EventBridge | [削除手順](06_event_delete.md)                                           |
+| 7章  | Resource Health               | 本章に関する削除対象のリソースはありません。[^delete-resource-health]    |
+| 8章  | Synthetics                    | [削除手順](08_synthetics_delete.md)                                      |
+| 9章  | Evidently                     | [削除手順](09_evidently_delete.md)                                       |
+| 10章 | RUM                           | [削除手順](10_rum_delete.md)                                             |
+| 11章 | X-Ray                         | 本章に関する削除対象のリソースはありません。[^delete-xray]               |
+| 12章 | ServiceLens                   | 本章に関する削除対象のリソースはありません。[^delete-servicelens]        |
+| 13章 | Container Inisghts            | 本章に関する削除対象のリソースはありません。[^delete-container-insights] |
+| 14章 | Lambda Insights               | 本章に関する削除対象のリソースはありません。[^delete-lambda-insights]    |
+| 15章 | Contributor Insights          | [削除手順](15_contributor_insights_delete.md)                            |
+| 16章 | Application Insights          | [削除手順](16_application_insights_delete.md)                            |
+| 17章 | Anomaly Detection             | [削除手順](17_anomaly_detection_delete.md)                               |
 
 ## Lambda関連のリソース削除
 
@@ -177,9 +177,9 @@ $ copilot app delete --name cnos
 
 実施したミニハンズオンにしたがって、各リソースを削除してください。
 
-|章|対象リソース|削除手順|
-|-|-|-|
-|4章|CloudWatch Logs|[削除手順](04_logs_delete.md)|
+| 章  | 対象リソース    | 削除手順                      |
+| --- | --------------- | ----------------------------- |
+| 4章 | CloudWatch Logs | [削除手順](04_logs_delete.md) |
 
 以上でハンズオン関連の主要なリソース削除は完了です。
 お疲れ様でした。
