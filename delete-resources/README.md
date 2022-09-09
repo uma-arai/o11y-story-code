@@ -17,7 +17,8 @@
 
 |章|対象リソース|削除手順|
 |-|-|-|
-|3章|CloudWatch Metrics|本章に関する削除対象のリソースはありません。[^delete-metrics]|
+|3章|CloudWatch Metrics|[削除手順](03_metrics_delete.md)[^delete-metrics]|
+|4章|CloudWatch Logs|本章に関する削除対象のリソースはありません。[^delete-logs]|
 |5章|CloudWatch Alarm|[削除手順](05_alarm_delete.md)|
 |6章|CloudWatch Events/EventBridge|[削除手順](06_event_delete.md)|
 |7章|Resource Health|本章に関する削除対象のリソースはありません。[^delete-resource-health]|
@@ -187,6 +188,8 @@ $ copilot app delete --name cnos
 必要に応じて皆さまの方で適宜削除してください。
 
 [^delete-metrics]: AWSの仕様上、ミニハンズオンにて作成された標準メトリクス及びカスタムメトリクスは利用者側で削除できません。15ヶ月保持された後、自動で削除されます。また、サンプルアプリのECSタスクロールに付与されたIAMポリシーに関して、Copilotによるサンプルアプリケーション削除時に併せて削除されるため、個別の対応は不要です。
+
+[^delete-logs]: するリソースは[Copilot関連のリソース削除]手順にて併せて自動で削除されます。
 
 [^delete-resource-health]: 本章に関連するリソースは[Copilot関連のリソース削除]手順にて併せて自動で削除されます。
 
