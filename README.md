@@ -28,6 +28,9 @@
 
 - AWSアカウントを所有していること
 - AdministratorAccessポリシー相当のIAMユーザーもしくはIAMロールで作業可能なこと
+- 作業は東京リージョン(ap-northeast-1)で実施すること（下図参照）
+
+![image](https://user-images.githubusercontent.com/1488191/189370818-83f80afb-9e06-4d68-a198-aadefbd19d59.png)
 
 ### 共通で利用するCloud9の作成
 
