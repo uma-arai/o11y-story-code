@@ -2,7 +2,7 @@
   "name": "cloudwatch-webapp",
   "version": "1.0.0",
   "scripts": {
-    "dev": "blitz dev",
+    "dev": "NODE_OPTIONS='--openssl-legacy-provider' blitz dev",
     "build": "npx aspida && npx blitz build",
     "start": "npx blitz start",
     "start:prd": "npx blitz start --port 80",
