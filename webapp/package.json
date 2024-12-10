@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "NODE_OPTIONS='--openssl-legacy-provider' blitz dev",
-    "build": "npx aspida && npx blitz build",
-    "start": "npx blitz start",
-    "start:prd": "npx blitz start --port 80",
+    "build": "npx aspida && NODE_OPTIONS='--openssl-legacy-provider' npx blitz build",
+    "start": "NODE_OPTIONS='--openssl-legacy-provider' npx blitz start",
+    "start:prd": "NODE_OPTIONS='--openssl-legacy-provider' npx blitz start --port 80",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "jest",
     "test:watch": "jest --watch",
